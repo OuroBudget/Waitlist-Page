@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OuroBudget™ — Loop In. Level Up.</title>
+  <meta name="description" content="A budgeting app built on transparency. Connect your banks, track spending, and take control of your financial loop. Launching soon."/>
+  <meta property="og:title" content="OuroBudget™ — Loop In. Level Up."/>
+  <meta property="og:description" content="A budgeting app built on transparency. Launching soon — join the waitlist."/>
+  <meta property="og:type" content="website"/>
+  <meta name="theme-color" content="#5A9B0A"/>
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="/Favicons/favicon.svg"/>
+  <link rel="icon" type="image/png" sizes="96x96" href="/Favicons/favicon-96x96.png"/>
+  <link rel="icon" type="image/x-icon" href="/Favicons/favicon.ico"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="/Favicons/apple-touch-icon.png"/>
+  <link rel="manifest" href="/Favicons/site.webmanifest"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Light mode — from Logo_-_Light_Mode.svg */
+      --bg:        #EDECE9;
+      --surface:   #F7F7F5;
+      --border:    #D8D6D0;
+      --border-ac: #A8C870;
+      --accent:    #5A9B0A;
+      --accent-d:  #3d6b07;
+      --accent-l:  #EAF3D8;
+      --accent-m:  #A8C870;
+      --accent-br: #1CCA3F;
+      --text:      #262525;
+      --text-sec:  #6E6B6B;
+      --muted:     #848282;
+
+      /* Snake colors pulled from logo gradients */
+      --snake-a:   #3d6b07;
+      --snake-b:   #5A9B0A;
+      --snake-c:   #6FDC30;
+      --snake-d:   #1CCA3F;
+      --snake-e:   #A8C870;
+    }
+
+    .dark {
+      /* Dark mode — from Logo_-_Dark_Mode.svg */
+      --bg:        #1E1E1E;
+      --surface:   #262525;
+      --border:    #333330;
+      --border-ac: rgba(90,155,10,0.35);
+      --accent:    #6FDC30;
+      --accent-d:  #2ABF33;
+      --accent-l:  rgba(90,155,10,0.12);
+      --accent-m:  rgba(90,155,10,0.3);
+      --accent-br: #1CCA3F;
+      --text:      #EDECE9;
+      --text-sec:  #848282;
+      --muted:     #6E6B6B;
+
+      --snake-a:   #3d6b07;
+      --snake-b:   #5A9B0A;
+      --snake-c:   #6FDC30;
+      --snake-d:   #2ABF33;
+      --snake-e:   rgba(111,220,48,0.35);
+    }
+
+    html, body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      transition: background 0.3s, color 0.3s;
+      overflow-x: hidden;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 28px;
+      background: var(--bg);
+      border-bottom: 0.5px solid var(--border);
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .logo-mark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    /* Inline header snake icon — matches logo style */
+    .header-icon {
+      width: 28px;
+      height: 28px;
+    }
+
+    .logo-text {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .logo-text sup {
+      font-size: 0.45em;
+      vertical-align: super;
+      line-height: 0;
+      margin-left: 0.1em;
+      font-weight: 400;
+    }
+
+    .mode-toggle {
+      background: var(--accent-l);
+      border: 0.5px solid var(--border-ac);
+      border-radius: 20px;
+      padding: 5px 13px;
+      font-size: 11px;
+      color: var(--accent);
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+
+    .mode-toggle:hover {
+      background: var(--accent-m);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 24px 60px;
+      text-align: center;
+      position: relative;
+    }
+
+    .bg-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      border: 1px solid var(--border-ac);
+      opacity: 0.25;
+      pointer-events: none;
+    }
+
+    .bg-ring-2 {
+      width: 820px;
+      height: 820px;
+      opacity: 0.12;
+    }
+
+    /* ── LOGO ANIMATION ── */
+    .logo-anim {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin-bottom: 36px;
+    }
+
+    .logo-anim svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Eyebrow / headline */
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    h1 {
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .sub {
+      font-size: clamp(15px, 2vw, 18px);
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 480px;
+      margin: 0 auto 40px;
+    }
+
+    /* ── WAITLIST ── */
+    .waitlist {
+      display: flex;
+      gap: 8px;
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto 16px;
+    }
+
+    .waitlist input {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 0.5px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .waitlist input::placeholder { color: var(--muted); }
+
+    .waitlist input:focus {
+      border-color: var(--accent-m);
+      box-shadow: 0 0 0 3px var(--accent-l);
+    }
+
+    .waitlist button {
+      padding: 12px 20px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      font-size: 14px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .waitlist button:hover { background: var(--accent-d); }
+    .waitlist button:active { transform: scale(0.97); }
+
+    .form-note {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .form-note a { color: var(--accent); text-decoration: none; }
+
+    .success-msg {
+      display: none;
+      background: var(--accent-l);
+      border: 0.5px solid var(--border-ac);
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 14px;
+      color: var(--accent);
+      max-width: 420px;
+      margin: 0 auto;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      padding: 80px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .features-label {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--border-ac);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--accent-l);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .feature-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── TRANSPARENCY ── */
+    .transparency {
+      padding: 80px 24px;
+      background: var(--surface);
+      border-top: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .transparency-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .transparency-inner h2 {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .transparency-inner p {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .cost-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .cost-pill {
+      background: var(--accent-l);
+      border: 0.5px solid var(--border-ac);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .price-callout {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 4px;
+      margin-top: 8px;
+    }
+
+    .price-num {
+      font-size: 42px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: -0.03em;
+    }
+
+    .price-period {
+      font-size: 16px;
+      color: var(--muted);
+    }
+
+    .price-note {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-top: 0.5px solid var(--border);
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-tagline {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      header { padding: 12px 16px; }
+      .waitlist { flex-direction: column; }
+      .waitlist button { width: 100%; }
+      footer { flex-direction: column; align-items: flex-start; }
+      .bg-ring { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo-mark" href="#">
+    <!-- Header icon — your actual logo mark -->
+    <svg class="header-icon" viewBox="60 60 390 390" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="hdr_grad" x1="249.016" y1="106" x2="249.016" y2="389.459" gradientUnits="userSpaceOnUse">
+          <stop offset="0.638939" stop-color="#6FDC30" stop-opacity="0.86"/>
+          <stop offset="1" stop-color="#5A9B0A"/>
+        </linearGradient>
+        <linearGradient id="hdr_head_grad" x1="0" y1="0" x2="500" y2="500" gradientUnits="userSpaceOnUse">
+          <stop stop-color="#1CCA3F"/>
+          <stop offset="1" stop-color="#5A9B0A"/>
+        </linearGradient>
+      </defs>
+      <!-- Dollar sign -->
+      <path d="M266.808 260.276C266.808 262.135 266.468 263.835 265.788 265.376C265.108 266.917 264.133 268.232 262.864 269.32C261.594 270.408 260.076 271.247 258.308 271.836C256.54 272.471 254.545 272.811 252.324 272.856V279.044H249.74V272.652C248.697 272.425 247.632 272.176 246.544 271.904C245.501 271.632 244.458 271.315 243.416 270.952C242.101 271.088 240.741 271.587 239.336 272.448C238.565 270.408 237.794 268.436 237.024 266.532C236.298 264.583 235.55 262.588 234.78 260.548C235.052 260.367 235.301 260.208 235.528 260.072C235.8 259.936 236.072 259.777 236.344 259.596C238.565 262.951 240.718 265.421 242.804 267.008C244.934 268.549 247.246 269.547 249.74 270V250.756C245.07 249.079 241.67 247.197 239.54 245.112C237.454 242.981 236.412 240.42 236.412 237.428C236.412 235.479 236.752 233.801 237.432 232.396C238.157 230.945 239.109 229.744 240.288 228.792C241.512 227.84 242.917 227.137 244.504 226.684C246.136 226.185 247.881 225.913 249.74 225.868V219.952H252.324V226.072C253.094 226.163 253.888 226.344 254.704 226.616C255.565 226.843 256.472 227.183 257.424 227.636L260.96 226.276C261.73 228.225 262.478 230.175 263.204 232.124C263.974 234.073 264.745 236.023 265.516 237.972C265.289 238.108 265.04 238.244 264.768 238.38C264.541 238.471 264.314 238.584 264.088 238.72C262.365 235.728 260.438 233.393 258.308 231.716C256.222 230.039 254.228 228.973 252.324 228.52V246.88C255.225 247.923 257.605 248.92 259.464 249.872C261.368 250.824 262.864 251.821 263.952 252.864C265.04 253.907 265.788 255.017 266.196 256.196C266.604 257.375 266.808 258.735 266.808 260.276ZM252.324 270.34C255.588 270.249 258.149 269.433 260.008 267.892C261.866 266.351 262.796 264.22 262.796 261.5C262.796 260.412 262.66 259.46 262.388 258.644C262.116 257.828 261.594 257.057 260.824 256.332C260.053 255.607 258.988 254.904 257.628 254.224C256.268 253.544 254.5 252.796 252.324 251.98V270.34ZM249.74 228.248C246.748 228.339 244.413 229.132 242.736 230.628C241.058 232.079 240.22 234.119 240.22 236.748C240.22 240.239 243.393 243.208 249.74 245.656V228.248Z" fill="#5A9B0A"/>
+      <!-- Snake body -->
+      <path d="M400.99 265.088C400.926 261.566 399.529 258.176 397.038 255.663C394.548 253.149 391.179 251.718 387.659 251.685C384.139 251.651 380.743 253.017 378.205 255.483C375.666 257.948 374.205 261.311 374.074 264.83C374.074 264.83 374.074 264.83 374.074 264.83C373.595 276.1 370.367 287.565 365.33 298.324C344.651 342.019 297.106 373.033 249.992 371.826C190.455 372.246 137.673 324.048 130.729 265.656C129.908 259.734 129.484 253.771 129.451 247.75C127.667 182.492 184.103 121.124 253.468 118.062C290.016 115.608 328.385 128.671 357.005 155.285C366.684 164.231 375.25 174.631 382.287 186.19C377.529 173.522 370.798 161.411 362.346 150.428C337.527 117.768 296.735 95.9344 253.468 93.9376C171.438 87.1217 89.7197 161.085 91.5493 247.75C91.5168 255.489 92.0243 263.2 93.0896 270.879C101.676 346.858 173.66 410.169 250 407.092C312.437 406.414 368.674 365.601 391.948 309.889C397.631 295.948 401.19 280.798 400.99 265.088Z" fill="url(#hdr_grad)"/>
+      <path d="M400.99 265.088C400.926 261.566 399.529 258.176 397.038 255.663C394.548 253.149 391.179 251.718 387.659 251.685C384.139 251.651 380.743 253.017 378.205 255.483C375.666 257.948 374.205 261.311 374.074 264.83C374.074 264.83 374.074 264.83 374.074 264.83C373.595 276.1 370.367 287.565 365.33 298.324C344.651 342.019 297.106 373.033 249.992 371.826C190.455 372.246 137.673 324.048 130.729 265.656C129.908 259.734 129.484 253.771 129.451 247.75C127.667 182.492 184.103 121.124 253.468 118.062C290.016 115.608 328.385 128.671 357.005 155.285C366.684 164.231 375.25 174.631 382.287 186.19C377.529 173.522 370.798 161.411 362.346 150.428C337.527 117.768 296.735 95.9344 253.468 93.9376C171.438 87.1217 89.7197 161.085 91.5493 247.75C91.5168 255.489 92.0243 263.2 93.0896 270.879C101.676 346.858 173.66 410.169 250 407.092C312.437 406.414 368.674 365.601 391.948 309.889C397.631 295.948 401.19 280.798 400.99 265.088Z" fill="black" fill-opacity="0.2"/>
+      <!-- Accent rings -->
+      <path d="M250.75 169.5C293.953 169.5 329 205.528 329 250C329 294.472 293.953 330.5 250.75 330.5C207.547 330.5 172.5 294.472 172.5 250C172.5 205.528 207.547 169.5 250.75 169.5Z" stroke="#5A9B0A"/>
+      <circle cx="250" cy="250" r="187" stroke="#5A9B0A"/>
+      <!-- Head -->
+      <path d="M395.401 227.5C398.718 238.836 402.117 248.793 406.257 258.21C408.479 263.263 409.589 265.79 409.135 267.98C408.923 269.003 408.444 270.038 407.802 270.862C406.427 272.627 404.191 273.295 399.719 274.629C390.271 277.448 382.13 277.801 372.77 275.431C368.103 274.249 365.769 273.657 364.3 271.82C363.62 270.969 363.111 269.873 362.9 268.804C362.445 266.496 363.759 263.799 366.389 258.406C371.109 248.728 374.424 238.716 377.213 227.5H395.401Z" fill="url(#hdr_head_grad)"/>
+      <!-- Eye -->
+      <ellipse cx="386.237" cy="228.437" rx="9.3375" ry="6.75" fill="#2ABF33"/>
+    </svg>
+    <span class="logo-text">OuroBudget<sup>™</sup></span>
+  </a>
+  <button class="mode-toggle" onclick="toggleMode()">Dark mode</button>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="bg-ring"></div>
+    <div class="bg-ring bg-ring-2"></div>
+
+    <!-- Hero logo mark — your actual Figma logo -->
+    <div class="logo-anim">
+      <svg viewBox="60 60 390 390" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hero_body_grad" x1="249.016" y1="106" x2="249.016" y2="389.459" gradientUnits="userSpaceOnUse">
+            <stop offset="0.638939" stop-color="#6FDC30" stop-opacity="0.86"/>
+            <stop offset="1" stop-color="#5A9B0A"/>
+          </linearGradient>
+          <linearGradient id="hero_head_grad" x1="0" y1="0" x2="500" y2="500" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#1CCA3F"/>
+            <stop offset="1" stop-color="#5A9B0A"/>
+          </linearGradient>
+          <clipPath id="hero_head_clip">
+            <path d="M395.401 227.5C398.718 238.836 402.117 248.793 406.257 258.21C408.479 263.263 409.589 265.79 409.135 267.98C408.923 269.003 408.444 270.038 407.802 270.862C406.427 272.627 404.191 273.295 399.719 274.629C390.271 277.448 382.13 277.801 372.77 275.431C368.103 274.249 365.769 273.657 364.3 271.82C363.62 270.969 363.111 269.873 362.9 268.804C362.445 266.496 363.759 263.799 366.389 258.406C371.109 248.728 374.424 238.716 377.213 227.5H395.401Z"/>
+          </clipPath>
+        </defs>
+        <!-- Dollar sign -->
+        <path d="M266.808 260.276C266.808 262.135 266.468 263.835 265.788 265.376C265.108 266.917 264.133 268.232 262.864 269.32C261.594 270.408 260.076 271.247 258.308 271.836C256.54 272.471 254.545 272.811 252.324 272.856V279.044H249.74V272.652C248.697 272.425 247.632 272.176 246.544 271.904C245.501 271.632 244.458 271.315 243.416 270.952C242.101 271.088 240.741 271.587 239.336 272.448C238.565 270.408 237.794 268.436 237.024 266.532C236.298 264.583 235.55 262.588 234.78 260.548C235.052 260.367 235.301 260.208 235.528 260.072C235.8 259.936 236.072 259.777 236.344 259.596C238.565 262.951 240.718 265.421 242.804 267.008C244.934 268.549 247.246 269.547 249.74 270V250.756C245.07 249.079 241.67 247.197 239.54 245.112C237.454 242.981 236.412 240.42 236.412 237.428C236.412 235.479 236.752 233.801 237.432 232.396C238.157 230.945 239.109 229.744 240.288 228.792C241.512 227.84 242.917 227.137 244.504 226.684C246.136 226.185 247.881 225.913 249.74 225.868V219.952H252.324V226.072C253.094 226.163 253.888 226.344 254.704 226.616C255.565 226.843 256.472 227.183 257.424 227.636L260.96 226.276C261.73 228.225 262.478 230.175 263.204 232.124C263.974 234.073 264.745 236.023 265.516 237.972C265.289 238.108 265.04 238.244 264.768 238.38C264.541 238.471 264.314 238.584 264.088 238.72C262.365 235.728 260.438 233.393 258.308 231.716C256.222 230.039 254.228 228.973 252.324 228.52V246.88C255.225 247.923 257.605 248.92 259.464 249.872C261.368 250.824 262.864 251.821 263.952 252.864C265.04 253.907 265.788 255.017 266.196 256.196C266.604 257.375 266.808 258.735 266.808 260.276ZM252.324 270.34C255.588 270.249 258.149 269.433 260.008 267.892C261.866 266.351 262.796 264.22 262.796 261.5C262.796 260.412 262.66 259.46 262.388 258.644C262.116 257.828 261.594 257.057 260.824 256.332C260.053 255.607 258.988 254.904 257.628 254.224C256.268 253.544 254.5 252.796 252.324 251.98V270.34ZM249.74 228.248C246.748 228.339 244.413 229.132 242.736 230.628C241.058 232.079 240.22 234.119 240.22 236.748C240.22 240.239 243.393 243.208 249.74 245.656V228.248Z" fill="#5A9B0A"/>
+        <!-- Snake body -->
+        <path d="M400.99 265.088C400.926 261.566 399.529 258.176 397.038 255.663C394.548 253.149 391.179 251.718 387.659 251.685C384.139 251.651 380.743 253.017 378.205 255.483C375.666 257.948 374.205 261.311 374.074 264.83C374.074 264.83 374.074 264.83 374.074 264.83C373.595 276.1 370.367 287.565 365.33 298.324C344.651 342.019 297.106 373.033 249.992 371.826C190.455 372.246 137.673 324.048 130.729 265.656C129.908 259.734 129.484 253.771 129.451 247.75C127.667 182.492 184.103 121.124 253.468 118.062C290.016 115.608 328.385 128.671 357.005 155.285C366.684 164.231 375.25 174.631 382.287 186.19C377.529 173.522 370.798 161.411 362.346 150.428C337.527 117.768 296.735 95.9344 253.468 93.9376C171.438 87.1217 89.7197 161.085 91.5493 247.75C91.5168 255.489 92.0243 263.2 93.0896 270.879C101.676 346.858 173.66 410.169 250 407.092C312.437 406.414 368.674 365.601 391.948 309.889C397.631 295.948 401.19 280.798 400.99 265.088Z" fill="url(#hero_body_grad)"/>
+        <path d="M400.99 265.088C400.926 261.566 399.529 258.176 397.038 255.663C394.548 253.149 391.179 251.718 387.659 251.685C384.139 251.651 380.743 253.017 378.205 255.483C375.666 257.948 374.205 261.311 374.074 264.83C374.074 264.83 374.074 264.83 374.074 264.83C373.595 276.1 370.367 287.565 365.33 298.324C344.651 342.019 297.106 373.033 249.992 371.826C190.455 372.246 137.673 324.048 130.729 265.656C129.908 259.734 129.484 253.771 129.451 247.75C127.667 182.492 184.103 121.124 253.468 118.062C290.016 115.608 328.385 128.671 357.005 155.285C366.684 164.231 375.25 174.631 382.287 186.19C377.529 173.522 370.798 161.411 362.346 150.428C337.527 117.768 296.735 95.9344 253.468 93.9376C171.438 87.1217 89.7197 161.085 91.5493 247.75C91.5168 255.489 92.0243 263.2 93.0896 270.879C101.676 346.858 173.66 410.169 250 407.092C312.437 406.414 368.674 365.601 391.948 309.889C397.631 295.948 401.19 280.798 400.99 265.088Z" fill="black" fill-opacity="0.2"/>
+        <!-- Accent rings -->
+        <path d="M250.75 169.5C293.953 169.5 329 205.528 329 250C329 294.472 293.953 330.5 250.75 330.5C207.547 330.5 172.5 294.472 172.5 250C172.5 205.528 207.547 169.5 250.75 169.5Z" stroke="#5A9B0A"/>
+        <circle cx="250" cy="250" r="187" stroke="#5A9B0A"/>
+        <!-- Head with gradient -->
+        <g clip-path="url(#hero_head_clip)">
+          <path d="M395.401 227.5C398.718 238.836 402.117 248.793 406.257 258.21C408.479 263.263 409.589 265.79 409.135 267.98C408.923 269.003 408.444 270.038 407.802 270.862C406.427 272.627 404.191 273.295 399.719 274.629C390.271 277.448 382.13 277.801 372.77 275.431C368.103 274.249 365.769 273.657 364.3 271.82C363.62 270.969 363.111 269.873 362.9 268.804C362.445 266.496 363.759 263.799 366.389 258.406C371.109 248.728 374.424 238.716 377.213 227.5H395.401Z" fill="url(#hero_head_grad)"/>
+        </g>
+        <!-- Eye -->
+        <ellipse cx="386.237" cy="228.437" rx="9.3375" ry="6.75" fill="#2ABF33"/>
+      </svg>
+    </div>
+
+    <p class="eyebrow">Coming soon</p>
+    <h1>Your money,<br/><em>full circle.</em></h1>
+    <p class="sub">A budgeting app built on radical transparency — no ads, no data selling, no surprises. Just a clean tool that works for you.</p>
+
+    <div class="waitlist" id="waitlistForm">
+      <input type="email" id="emailInput" placeholder="your@email.com" autocomplete="email"/>
+      <button onclick="joinWaitlist()">Join waitlist</button>
+    </div>
+    <div class="success-msg" id="successMsg">
+      You're in the loop. ✓ We'll reach out before launch.
+    </div>
+    <p class="form-note">Free 30-day trial at launch. No credit card required. <a href="#">Privacy policy</a>.</p>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <p class="features-label">What's inside</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🏦</div>
+        <div class="feature-title">Bank connectivity</div>
+        <div class="feature-desc">Securely connect checking, savings, and loan accounts via Plaid — the same infrastructure the big banks use.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💳</div>
+        <div class="feature-title">Credit card analysis</div>
+        <div class="feature-desc">Track balances, reward totals, and payoff timelines across all your cards in one place.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">Spending trends</div>
+        <div class="feature-desc">Month-over-month breakdowns, category analysis, and highest spend alerts so nothing sneaks up on you.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-title">Savings goals</div>
+        <div class="feature-desc">Create named buckets for any goal — emergency fund, vacation, down payment — and watch them fill up.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <div class="feature-title">Net worth tracking</div>
+        <div class="feature-desc">See your complete financial picture — assets, debts, and the number that matters most, updated automatically.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔮</div>
+        <div class="feature-title">Outlook tools</div>
+        <div class="feature-desc">Project savings timelines and debt payoff dates so you can make decisions based on where you're headed, not just where you are.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transparency -->
+  <section class="transparency">
+    <div class="transparency-inner">
+      <h2>Why we charge what we charge</h2>
+      <p>Running OuroBudget™ costs real money — secure bank connectivity, encrypted data storage, and infrastructure that never compromises your financial privacy. So we charge a small subscription instead of selling your data or showing you ads.</p>
+      <div class="cost-pills">
+        <span class="cost-pill">Plaid bank connectivity</span>
+        <span class="cost-pill">Encrypted cloud storage</span>
+        <span class="cost-pill">No ads. Ever.</span>
+        <span class="cost-pill">No data selling. Ever.</span>
+        <span class="cost-pill">30-day free trial</span>
+      </div>
+      <div class="price-callout">
+        <span class="price-num">$4.99</span>
+        <span class="price-period">/month</span>
+      </div>
+      <p class="price-note">That's it. No hidden fees, no tiers, no upsells.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-left">
+    <!-- Footer mini mark -->
+    <svg width="18" height="18" viewBox="-10 -10 20 20" fill="none">
+      <circle cx="0" cy="0" r="8" fill="none" stroke="var(--muted)" stroke-width="1" stroke-dasharray="3 2"/>
+      <circle cx="0" cy="0" r="2.5" fill="var(--muted)" opacity="0.5"/>
+    </svg>
+    <span style="font-size:13px;font-weight:500;color:var(--muted);">OuroBudget<sup style="font-size:0.45em;vertical-align:super;line-height:0;">™</sup></span>
+    <span class="footer-tagline">Loop In. Level Up.</span>
+  </div>
+  <nav class="footer-links">
+    <a href="#">About</a>
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Contact</a>
+  </nav>
+</footer>
+
+<script>
+  var dark = false;
+
+  function toggleMode() {
+    dark = !dark;
+    document.body.classList.toggle('dark', dark);
+    document.querySelector('.mode-toggle').textContent = dark ? 'Light mode' : 'Dark mode';
+  }
+
+  function joinWaitlist() {
+    var email = document.getElementById('emailInput').value.trim();
+    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!re.test(email)) {
+      document.getElementById('emailInput').style.borderColor = '#E24B4A';
+      document.getElementById('emailInput').focus();
+      return;
+    }
+
+    fetch('https://api.brevo.com/v3/contacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': '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'
+      },
+      body: JSON.stringify({
+        email: email,
+        listIds: [3],
+        updateEnabled: true
+      })
+    });
+
+    document.getElementById('waitlistForm').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }
+
+  document.getElementById('emailInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') joinWaitlist();
+    this.style.borderColor = '';
+  });
+</script>
+</body>
+</html>
