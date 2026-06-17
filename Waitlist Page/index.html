@@ -634,17 +634,10 @@
       return;
     }
 
-    fetch('https://api.brevo.com/v3/contacts', {
+    fetch('https://ourobudget-waitlist.workers.dev', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'api-key': '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'
-      },
-      body: JSON.stringify({
-        email: email,
-        listIds: [3],
-        updateEnabled: true
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email })
     });
 
     document.getElementById('waitlistForm').style.display = 'none';
