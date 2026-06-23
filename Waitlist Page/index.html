@@ -3,12 +3,23 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>OuroBudget™ — Loop In. Level Up.</title>
+  <title>OuroBudget™ - Loop In. Level Up.</title>
   <meta name="description" content="A budgeting app built on transparency. Connect your banks, track spending, and take control of your financial loop. Launching soon."/>
   <meta property="og:title" content="OuroBudget™ — Loop In. Level Up."/>
-  <meta property="og:description" content="A budgeting app built on transparency. Launching soon — join the waitlist."/>
+  <meta property="og:description" content="A budgeting app built on transparency. Launching soon - join the waitlist."/>
   <meta property="og:type" content="website"/>
   <meta name="theme-color" content="#5A9B0A"/>
+
+  <!-- Apply saved theme before paint to avoid a flash -->
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem('ourobudget-theme') === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
 
   <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="/Favicons/favicon.svg"/>
@@ -444,7 +455,7 @@
 
     .footer-links a:hover { color: var(--accent); }
 
-    /* ── RESPONSIVE ── */
+    /* RESPONSIVE */
     @media (max-width: 600px) {
       header { padding: 12px 16px; }
       .waitlist { flex-direction: column; }
@@ -458,7 +469,7 @@
 
 <header>
   <a class="logo-mark" href="#">
-    <!-- Header icon — your actual logo mark -->
+    <!-- Header Logo -->
     <svg class="header-icon" viewBox="60 60 390 390" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="hdr_grad" x1="249.016" y1="106" x2="249.016" y2="389.459" gradientUnits="userSpaceOnUse">
@@ -493,7 +504,7 @@
     <div class="bg-ring"></div>
     <div class="bg-ring bg-ring-2"></div>
 
-    <!-- Hero logo mark — your actual Figma logo -->
+    <!-- Full Logo -->
     <div class="logo-anim">
       <svg viewBox="60 60 390 390" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -517,7 +528,7 @@
         <!-- Accent rings -->
         <path d="M250.75 169.5C293.953 169.5 329 205.528 329 250C329 294.472 293.953 330.5 250.75 330.5C207.547 330.5 172.5 294.472 172.5 250C172.5 205.528 207.547 169.5 250.75 169.5Z" stroke="#5A9B0A"/>
         <circle cx="250" cy="250" r="187" stroke="#5A9B0A"/>
-        <!-- Head with gradient -->
+        <!-- Head -->
         <g clip-path="url(#hero_head_clip)">
           <path d="M395.401 227.5C398.718 238.836 402.117 248.793 406.257 258.21C408.479 263.263 409.589 265.79 409.135 267.98C408.923 269.003 408.444 270.038 407.802 270.862C406.427 272.627 404.191 273.295 399.719 274.629C390.271 277.448 382.13 277.801 372.77 275.431C368.103 274.249 365.769 273.657 364.3 271.82C363.62 270.969 363.111 269.873 362.9 268.804C362.445 266.496 363.759 263.799 366.389 258.406C371.109 248.728 374.424 238.716 377.213 227.5H395.401Z" fill="url(#hero_head_grad)"/>
         </g>
@@ -537,7 +548,7 @@
     <div class="success-msg" id="successMsg">
       You're in the loop. ✓ We'll reach out before launch.
     </div>
-    <p class="form-note">Free 30-day trial at launch. No credit card required. <a href="#">Privacy policy</a>.</p>
+    <p class="form-note">Free 30-day trial at launch. No credit card required. <a href="Documents/privacy.html">Privacy policy</a>.</p>
   </section>
 
   <!-- Features -->
@@ -610,19 +621,24 @@
   </div>
   <nav class="footer-links">
     <a href="#">About</a>
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
+    <a href="Documents/privacy.html">Privacy</a>
+    <a href="Documents/terms.html">Terms</a>
     <a href="mailto:hello@ourobudget.app">Contact</a>
   </nav>
 </footer>
 
 <script>
-  var dark = false;
+  // Initialize from the theme applied by the head script (saved in localStorage).
+  var dark = document.documentElement.classList.contains('dark');
+  document.querySelector('.mode-toggle').textContent = dark ? 'Light mode' : 'Dark mode';
 
   function toggleMode() {
     dark = !dark;
-    document.body.classList.toggle('dark', dark);
+    document.documentElement.classList.toggle('dark', dark);
     document.querySelector('.mode-toggle').textContent = dark ? 'Light mode' : 'Dark mode';
+    try {
+      localStorage.setItem('ourobudget-theme', dark ? 'dark' : 'light');
+    } catch (e) {}
   }
 
   function joinWaitlist() {

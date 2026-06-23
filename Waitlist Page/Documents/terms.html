@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms — OuroBudget</title>
+<meta name="description" content="The simple terms for joining the OuroBudget waitlist.">
+<link rel="icon" href="/Favicons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/Favicons/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/Favicons/apple-touch-icon.png">
+<!-- Inherit the theme chosen on the homepage (falls back to OS preference) -->
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('ourobudget-theme');
+      if (t === 'dark') document.documentElement.classList.add('dark');
+      else if (t === 'light') document.documentElement.classList.add('light');
+    } catch (e) {}
+  })();
+</script>
+<style>
+  :root {
+    --bg: #EDECE9;
+    --surface: #F7F7F5;
+    --accent: #5A9B0A;
+    --accent-dark: #3d6b07;
+    --accent-light: #EAF3D8;
+    --text: #262525;
+    --text-mid: #6E6B6B;
+    --text-soft: #848282;
+    --border: #e0dfdb;
+    --link: #3d6b07;
+  }
+  /* Dark vars shared by OS preference (when no explicit choice) and the .dark class */
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) {
+      --bg: #1E1E1E;
+      --surface: #262525;
+      --accent: #6FDC30;
+      --accent-dark: #2ABF33;
+      --accent-light: #2a3320;
+      --text: #EDECE9;
+      --text-mid: #848282;
+      --text-soft: #6E6B6B;
+      --border: #383838;
+      --link: #6FDC30;
+    }
+  }
+  html.dark {
+    --bg: #1E1E1E;
+    --surface: #262525;
+    --accent: #6FDC30;
+    --accent-dark: #2ABF33;
+    --accent-light: #2a3320;
+    --text: #EDECE9;
+    --text-mid: #848282;
+    --text-soft: #6E6B6B;
+    --border: #383838;
+    --link: #6FDC30;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    padding: 2rem 1.25rem 4rem;
+  }
+  .wrap { max-width: 680px; margin: 0 auto; }
+  header {
+    padding: 1.5rem 0 2rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2.5rem;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+  }
+  .brand .dot {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    border: 2.5px solid var(--accent);
+    display: grid; place-items: center;
+    color: var(--accent);
+    font-size: 0.8rem; font-weight: 800;
+  }
+  h1 {
+    font-size: 2rem;
+    letter-spacing: -0.02em;
+    margin: 1.75rem 0 0.4rem;
+    line-height: 1.15;
+  }
+  .updated { color: var(--text-soft); font-size: 0.85rem; font-weight: 500; }
+  .lede { font-size: 1.05rem; color: var(--text-mid); margin: 1.5rem 0 0.5rem; }
+  h2 { font-size: 1.05rem; margin: 2rem 0 0.4rem; color: var(--text); letter-spacing: -0.01em; }
+  p { margin: 0.4rem 0; color: var(--text-mid); }
+  a { color: var(--link); }
+  footer {
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+  }
+  footer a { color: var(--text-soft); text-decoration: none; }
+  footer a:hover { color: var(--accent-dark); }
+  .footlinks { display: flex; gap: 1.25rem; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <a class="brand" href="../index.html">
+        <span class="dot">$</span>
+        OuroBudget
+      </a>
+    </header>
+
+    <h1>Terms</h1>
+    <p class="updated">Waitlist · Last updated June 2026</p>
+
+    <p class="lede">By joining the OuroBudget waitlist, here's what you're agreeing to. Short and straightforward.</p>
+
+    <h2>What the waitlist is</h2>
+    <p>Joining the waitlist means you'd like to hear from us when OuroBudget launches and along the way. It's not a purchase, a subscription, or a commitment to anything. No payment, no obligation, on your side or ours.</p>
+
+    <h2>No guarantees on launch</h2>
+    <p>OuroBudget is in active development. We're working toward launch, but we can't promise specific dates, features, or pricing, and any of those may change as we build. Joining the waitlist doesn't guarantee access, a spot, or a particular price.</p>
+
+    <h2>Your email</h2>
+    <p>You're confirming the email you give us is yours to provide. How we handle it is covered in our <a href="privacy.html">Privacy Notice</a>.</p>
+
+    <h2>Changes</h2>
+    <p>We may update these terms or the privacy notice as things develop. If you stay on the list, the current version applies. You can leave anytime via the unsubscribe link in any email.</p>
+
+    <h2>Contact</h2>
+    <p>Questions? Email us at <a href="mailto:hello@ourobudget.app">hello@ourobudget.app</a>.</p>
+
+    <footer>
+      <span>© 2026 OuroBudget LLC</span>
+      <span class="footlinks">
+        <a href="../index.html">Home</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="mailto:hello@ourobudget.app">Contact</a>
+      </span>
+    </footer>
+  </div>
+</body>
+</html>
