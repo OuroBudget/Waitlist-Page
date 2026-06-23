@@ -10,13 +10,13 @@
   <meta property="og:type" content="website"/>
   <meta name="theme-color" content="#5A9B0A"/>
 
-  <!-- Apply saved theme before paint to avoid a flash -->
+  <!-- Apply a saved choice before paint; with no saved choice, OS preference governs via CSS -->
   <script>
     (function () {
       try {
-        if (localStorage.getItem('ourobudget-theme') === 'dark') {
-          document.documentElement.classList.add('dark');
-        }
+        var t = localStorage.getItem('ourobudget-theme');
+        if (t === 'dark') document.documentElement.classList.add('dark');
+        else if (t === 'light') document.documentElement.classList.add('light');
       } catch (e) {}
     })();
   </script>
@@ -74,6 +74,30 @@
       --snake-c:   #6FDC30;
       --snake-d:   #2ABF33;
       --snake-e:   rgba(111,220,48,0.35);
+    }
+
+    /* No saved choice → follow the OS preference (unless the user forced light) */
+    @media (prefers-color-scheme: dark) {
+      :root:not(.light) {
+        --bg:        #1E1E1E;
+        --surface:   #262525;
+        --border:    #333330;
+        --border-ac: rgba(90,155,10,0.35);
+        --accent:    #6FDC30;
+        --accent-d:  #2ABF33;
+        --accent-l:  rgba(90,155,10,0.12);
+        --accent-m:  rgba(90,155,10,0.3);
+        --accent-br: #1CCA3F;
+        --text:      #EDECE9;
+        --text-sec:  #848282;
+        --muted:     #6E6B6B;
+
+        --snake-a:   #3d6b07;
+        --snake-b:   #5A9B0A;
+        --snake-c:   #6FDC30;
+        --snake-d:   #2ABF33;
+        --snake-e:   rgba(111,220,48,0.35);
+      }
     }
 
     html, body {
@@ -601,7 +625,7 @@
         <span class="cost-pill">30-day free trial</span>
       </div>
       <div class="price-callout">
-        <span class="price-num">$4.99</span>
+        <span class="price-num">$5.99</span>
         <span class="price-period">/month</span>
       </div>
       <p class="price-note">That's it. No hidden fees, no tiers, no upsells.</p>
@@ -628,13 +652,18 @@
 </footer>
 
 <script>
-  // Initialize from the theme applied by the head script (saved in localStorage).
-  var dark = document.documentElement.classList.contains('dark');
+  // Effective theme: the saved choice if there is one, otherwise the OS preference.
+  var saved = null;
+  try { saved = localStorage.getItem('ourobudget-theme'); } catch (e) {}
+  var dark = saved ? saved === 'dark'
+                   : window.matchMedia('(prefers-color-scheme: dark)').matches;
   document.querySelector('.mode-toggle').textContent = dark ? 'Light mode' : 'Dark mode';
 
   function toggleMode() {
     dark = !dark;
-    document.documentElement.classList.toggle('dark', dark);
+    var root = document.documentElement;
+    root.classList.toggle('dark', dark);
+    root.classList.toggle('light', !dark);
     document.querySelector('.mode-toggle').textContent = dark ? 'Light mode' : 'Dark mode';
     try {
       localStorage.setItem('ourobudget-theme', dark ? 'dark' : 'light');

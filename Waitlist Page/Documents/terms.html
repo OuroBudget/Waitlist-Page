@@ -31,7 +31,7 @@
     --border: #e0dfdb;
     --link: #3d6b07;
   }
-  /* Dark vars shared by OS preference (when no explicit choice) and the .dark class */
+  /* No saved choice → follow the OS preference (unless the user forced light) */
   @media (prefers-color-scheme: dark) {
     :root:not(.light) {
       --bg: #1E1E1E;
@@ -145,7 +145,7 @@
     <p>You're confirming the email you give us is yours to provide. How we handle it is covered in our <a href="privacy.html">Privacy Notice</a>.</p>
 
     <h2>Changes</h2>
-    <p>We may update these terms or the privacy notice as things develop. If you stay on the list, the current version applies. You can leave anytime via the unsubscribe link in any email.</p>
+    <p>We may update these terms or the privacy notice as things develop. If you stay on the list, the current version applies. You can leave anytime via the unsubscribe link in any email or by emailing us at <a href="mailto:privacy@ourobudget.app">privacy@ourobudget.app</a>.</p>
 
     <h2>Contact</h2>
     <p>Questions? Email us at <a href="mailto:hello@ourobudget.app">hello@ourobudget.app</a>.</p>
